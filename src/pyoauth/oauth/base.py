@@ -5,7 +5,6 @@ from urllib.request import Request, urlopen
 
 
 class OAuth:
-
     def __init__(
         self,
         auth_endpoint: str,
@@ -20,7 +19,7 @@ class OAuth:
         self.query_auth = query_auth
         self.query_access = query_access
 
-    def sign_in(self, redirect_uri, state):
+    def sign_in(self, redirect_uri: str, state: str) -> str:
         """Returns the redirect endpoint having vendor-appropriate querystring"""
 
         self.query_auth.update({"state": state})
@@ -29,7 +28,7 @@ class OAuth:
         querystring = urlencode(self.query_auth)
         return self.auth_endpoint + "?" + querystring
 
-    def get_access_token(self, redirect_uri: str, code: str):
+    def get_access_token(self, redirect_uri: str, code: str) -> dict:
         """
         Returns access token and refresh token
         :param redirect_uri: URI to redirect the client
@@ -50,6 +49,6 @@ class OAuth:
         refresh_token = resp_data.get("refresh_token") or ""
 
         return {
-            "accessToken": access_token,
-            "refreshToken": refresh_token,
+            "access_token": access_token,
+            "refresh_token": refresh_token,
         }
