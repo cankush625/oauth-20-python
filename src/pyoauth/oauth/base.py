@@ -20,7 +20,11 @@ class OAuth:
         self.query_access = query_access
 
     def sign_in(self, redirect_uri: str, state: str) -> str:
-        """Returns the redirect endpoint having vendor-appropriate querystring"""
+        """
+        Returns the redirect endpoint having vendor-appropriate querystring
+        :param redirect_uri: URI to redirect the client. Generally a callback URI
+        :param state: State token for protecting from CSRF attacks
+        """
 
         self.query_auth.update({"state": state})
         self.query_auth.update({"redirect_uri": redirect_uri})
@@ -31,7 +35,7 @@ class OAuth:
     def get_access_token(self, redirect_uri: str, code: str) -> dict:
         """
         Returns access token and refresh token
-        :param redirect_uri: URI to redirect the client
+        :param redirect_uri: URI to redirect the client. Generally a callback URI
         :param code: authorization code
         """
 
