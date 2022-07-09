@@ -1,0 +1,2 @@
+class StateTokenDoesNotMatchError(Exception):
+    pass
