@@ -4,8 +4,8 @@ import urllib
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
-from base import OAuth
-from src.pyoauth.utils.oauth import get_query_auth, get_query_access
+from pyoauth.oauth.base import OAuth
+from pyoauth.utils.oauth import get_query_auth, get_query_access
 
 _client_id = os.environ.get("GOOGLE_CLIENT_ID")
 _client_secret = os.environ.get("GOOGLE_CLIENT_SECRET")
