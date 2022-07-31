@@ -34,6 +34,6 @@ def get_query_access(client_id: str, client_secret: str) -> dict:
 def generate_state_param(private_key: str) -> str:
     current_timestamp = str(datetime.datetime.now().isoformat())
     hashed_state = hmac.new(
-        private_key.encode("utf-8"), current_timestamp.encode("utf-8"), hashlib.sha1
+        private_key.encode("utf-8"), current_timestamp.encode("utf-8"), hashlib.sha256
     )
     return base64.b64encode(hashed_state.digest()).decode("utf-8")
