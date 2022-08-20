@@ -1,2 +1,2 @@
-class StateTokenDoesNotMatchError(Exception):
+class StateTokenMisMatchError(Exception):
     pass

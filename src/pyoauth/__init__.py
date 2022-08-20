@@ -1,6 +1,6 @@
 import urllib.request
 
-from pyoauth.common.exceptions import StateTokenDoesNotMatchError
+from pyoauth.common.exceptions import StateTokenMisMatchError
 from pyoauth.common.messages import STATE_TOKEN_DOES_NOT_MATCH
 from pyoauth.oauth.google import google_oauth
 from pyoauth.utils.oauth import generate_state_param
@@ -29,7 +29,7 @@ class Google:
         """
 
         if request.cookies.get("state") != state:
-            raise StateTokenDoesNotMatchError(
+            raise StateTokenMisMatchError(
                 {"StateToken": STATE_TOKEN_DOES_NOT_MATCH}
             )
         return google_oauth.get_access_token(redirect_uri, code)
