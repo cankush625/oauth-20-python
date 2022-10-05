@@ -7,11 +7,11 @@ from urllib.request import Request, urlopen
 class OAuth:
     def __init__(
         self,
+        query_auth: dict,
+        query_access: dict,
         auth_endpoint: str,
         access_endpoint: str,
         email_endpoint: str,
-        query_auth: dict,
-        query_access: dict,
     ) -> None:
         self.auth_endpoint = auth_endpoint
         self.access_endpoint = access_endpoint
@@ -50,7 +50,7 @@ class OAuth:
         response = urlopen(req)
         resp_data = json.load(response)
         access_token = resp_data.get("access_token")
-        refresh_token = resp_data.get("refresh_token") or ""
+        refresh_token = resp_data.get("refresh_token", "")
 
         return {
             "access_token": access_token,

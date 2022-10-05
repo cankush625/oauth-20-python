@@ -1,5 +1,4 @@
 import json
-import os
 import urllib
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -7,8 +6,6 @@ from urllib.request import Request, urlopen
 from pyoauth.oauth.base import OAuth
 from pyoauth.utils.oauth import get_query_auth, get_query_access
 
-_client_id = os.environ.get("GOOGLE_CLIENT_ID")
-_client_secret = os.environ.get("GOOGLE_CLIENT_SECRET")
 
 # Endpoints for Google OAuth
 _auth_endpoint = "https://accounts.google.com/o/oauth2/v2/auth"
@@ -21,18 +18,18 @@ class GoogleOAuth(OAuth):
 
     def __init__(
         self,
-        auth_endpoint: str,
-        access_endpoint: str,
-        email_endpoint: str,
-        query_auth: dict,
-        query_access: dict,
+        client_id: str,
+        client_secret: str,
+        auth_endpoint: str = _auth_endpoint,
+        access_endpoint: str = _access_endpoint,
+        email_endpoint: str = _email_endpoint,
     ) -> None:
         super().__init__(
+            get_query_auth(client_id),
+            get_query_access(client_id, client_secret),
             auth_endpoint,
             access_endpoint,
             email_endpoint,
-            query_auth,
-            query_access,
         )
 
     def get_user_info(self, access_token: str) -> dict:
@@ -53,12 +50,3 @@ class GoogleOAuth(OAuth):
         return {
             "user_email": user_email,
         }
-
-
-google_oauth: GoogleOAuth = GoogleOAuth(
-    auth_endpoint=_auth_endpoint,
-    access_endpoint=_access_endpoint,
-    email_endpoint=_email_endpoint,
-    query_auth=get_query_auth(_client_id),
-    query_access=get_query_access(_client_id, _client_secret),
-)
