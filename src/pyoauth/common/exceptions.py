@@ -1,0 +1,2 @@
+class StateTokenMisMatchError(Exception):
+    pass
